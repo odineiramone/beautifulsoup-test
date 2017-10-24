@@ -13,3 +13,7 @@ A test with using urllib to get html content, Beautiful Soup to "read" it and fl
 - Execute ` python app.py `
 
 - Execute ` curl http://127.0.0.1:5000/status ` in your terminal or access ` http://127.0.0.1:5000/status ` in your browser
+
+<div align="center">
+  <img src="https://media.giphy.com/media/xTiTnHvXHHxOTcdmxO/giphy.gif" alt="Nice project!"/>
+</div>
