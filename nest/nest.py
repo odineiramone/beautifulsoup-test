@@ -51,9 +51,8 @@ def go_spidey():
         'now_is' : datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
-
     return result
 
 
 if __name__ == '__main__':
-    spider_mano()
+    go_spidey()
