@@ -1,9 +1,15 @@
 from nest import nest
+from flask import Flask
+from flask_restful import Resource, Api
 
-def test_spider():
-    print('*** METRÔ ***')
-    print(nest.metro_spider())
-    print('*** CPTM ***')
-    print(nest.cptm_spider())
+app = Flask(__name__)
+api = Api(app)
 
-if __name__ == '__main__': test_spider()
+class HelloWorld(Resource):
+    def get(self):
+        return nest.go_spidey()
+
+api.add_resource(HelloWorld, '/status')
+
+if __name__ == '__main__':
+    app.run(debug=True)
