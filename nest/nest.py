@@ -1,3 +1,4 @@
+import re
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from datetime import datetime
@@ -5,6 +6,8 @@ from datetime import datetime
 def metro_spider():
     page = spider_man('http://www.metro.sp.gov.br/Sistemas/direto-do-metro-via4/diretodoMetroHome.aspx')
     subway_lines = page.find_all(id = 'statusLinhaMetro')
+    subway_updated_at = page.find_all(id = 'statusLinhaMetro')
+    subway_viaquatro_updated_at = page.find_all(id = 'statusLinhaMetro')
     parsed_result = []
 
     for lines in subway_lines:
@@ -15,7 +18,12 @@ def metro_spider():
                 'linha'    : spans[0].string
             })
 
-    return parsed_result
+    last_update = {
+        'metro' :filter_datetime( page.find(id = 'dataAtualizacaoStatus').text),
+        'viaquatro' : filter_datetime(page.find(id = 'dataAtualizacaoStatusViaQuatro').text)
+    }
+
+    return [parsed_result, last_update]
 
 
 def cptm_spider():
@@ -34,20 +42,38 @@ def cptm_spider():
             'linha'    : "Linha {line_title}".format(line_title=spans[0].string.capitalize())
         })
 
-    return parsed_result
+    last_update = filter_datetime(page.find(class_= 'ultima_atualizacao').text)
+
+    return [parsed_result, last_update]
 
 
 def spider_man(url):
-    page = urlopen(url)
+    page = urlopen(url).read()
     return BeautifulSoup(page, 'html.parser')
 
 
+def filter_datetime(text):
+    p = re.compile('[0-9]+/[0-9]+/[0-9]+.*[0-9]+:[0-9]+')
+    match = p.search(text)
+    if match:
+        return match.group(0)
+    else:
+        return ''
+
+
 def go_spidey():
+    metro_status, metro_updated_at = metro_spider()
+    cptm_status, cptm_updated_at = cptm_spider()
+
     result = {
-        'status': [
-            { 'metro' : metro_spider() },
-            { 'cptm' : cptm_spider() },
-        ],
+        'metro' : {
+            'status' : metro_status,
+            'updated_at' : metro_updated_at
+        },
+        'cptm' : {
+            'status' : cptm_status,
+            'updated_at' : cptm_updated_at
+        },
         'now_is' : datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
