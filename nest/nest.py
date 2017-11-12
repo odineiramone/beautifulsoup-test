@@ -14,7 +14,7 @@ def metro_spider():
         for li in lines.find_all('li'):
             spans =  li.find_all('span')
             parsed_result.append({
-                'situacao' : spans[1].string.strip(' \t\n\r'),
+                'situacao' : error_handler(spans[1]),
                 'linha'    : spans[0].string
             })
 
@@ -24,6 +24,12 @@ def metro_spider():
     }
 
     return [parsed_result, last_update]
+
+def error_handler(span):
+    try:
+        return span.string.strip(' \t\n\r')
+    except AttributeError:
+        return span.find('a').string
 
 
 def cptm_spider():
