@@ -1,6 +1,6 @@
 # Beautiful Soup test
 
-A test with using urllib to get html content, Beautiful Soup to "read" it and flask-restful to send data via REST API. My target is status of the subway and train services from Sao Paulo, Brazil
+A test with using urllib to get html content, Beautiful Soup to "read" it and flask to send data via REST API. My target is status of the subway and train services from Sao Paulo, Brazil
 
 ## Made with
 
