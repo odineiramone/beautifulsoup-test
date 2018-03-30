@@ -1,15 +1,12 @@
 from nest import nest
-from flask import Flask
-from flask_restful import Resource, Api
+from flask import Flask, jsonify
 
 app = Flask(__name__)
-api = Api(app)
 
-class HelloWorld(Resource):
-    def get(self):
-        return nest.go_spidey()
-
-api.add_resource(HelloWorld, '/status')
+@app.route('/status')
+def status():
+    json = nest.go_spidey()
+    return jsonify(json)
 
 if __name__ == '__main__':
     app.run(debug=True)
