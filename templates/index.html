@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Subway and Train status</title>
+    <style>
+    body {
+      margin: 0 auto;
+      max-width: 50em;
+      font-family: "Helvetica", "Arial", sans-serif;
+      line-height: 1.5;
+      padding: 1em 1em;
+      color: #555;
+    }
+
+    h2 {
+      margin-top: 1em;
+      padding-top: 1em;
+      color: #333;
+    }
+
+    table {
+        width:100%;
+    }
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+    table#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+    table#t01 tr:nth-child(odd) {
+       background-color: #fff;
+    }
+    table#t01 th {
+        background-color: black;
+        color: white;
+    }
+    </style>
+  </head>
+  <body>
+    <h2>Subway and Train status</h2>
+    <table>
+      <tr>
+        <th colspan="2">Metrô</th>
+      </tr>
+      <tr>
+        <th>Linha</th>
+        <th>Situação</th>
+      </tr>
+      {% for status in services_status['metro']['status'] %}
+        <tr>
+          <td>{{ status['linha'] }}</td>
+          <td>{{ status['situacao'] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <br><br>
+    <table>
+      <tr>
+        <th colspan="2">CPTM</th>
+      </tr>
+      <tr>
+        <th>Linha</th>
+        <th>Situação</th>
+      </tr>
+      {% for status in services_status['cptm']['status'] %}
+        <tr>
+          <td>{{ status['linha'] }}</td>
+          <td>{{ status['situacao'] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

@@ -33,12 +33,12 @@ A test with using urllib to get html content, Beautiful Soup to "read" it and fl
 
   - By curl in your terminal
   ```
-  curl http://127.0.0.1:5000/status
+  curl http://127.0.0.1:5000/api/status
   ```
 
   - or access in your browser
   ```
-  http://127.0.0.1:5000/status
+  http://127.0.0.1:5000
   ```
 
 <div align="center">
